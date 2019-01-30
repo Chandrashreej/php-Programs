@@ -1,0 +1,40 @@
+{
+"rice":[
+    {"name":"India gate",
+        "weight" : 5,
+        "price": 70},
+    {
+        "name" : "basumathi",
+        "weight" :6,
+        "price" : 80},
+        {
+            "name" : "sona masoori",
+            "weight" : 8,
+            "price" : 90
+        }
+
+    ],
+        "wheat" :[
+            {
+                "name" : "ashirwad",
+                "weight" : 5,
+                "price" :45
+            },
+            {
+                "name" : "tata",
+                "weight" :6 ,
+                "price" : 60
+                
+            },
+            {
+                "name" : "comdi",
+                "weight" : 7 ,
+                "price" : 80
+
+            }
+        ]
+
+
+
+
+}

@@ -1,0 +1,53 @@
+{
+    "rice": [
+        {
+            "name": "basumathi",
+            "weight": 5,
+            "rate": 70
+        },
+        {
+            "name": "normal",
+            "weight": 7,
+            "rate": 30
+        },
+        {
+            "name": "arbio",
+            "weight": 3,
+            "rate": 47
+        }
+    ],
+    "wheat": [
+        {
+            "name": "aaaa",
+            "weight": 2,
+            "rate": 20
+        },
+        {
+            "name": "bbb",
+            "weight": 4,
+            "rate": 30
+        },
+        {
+            "name": "ccc",
+            "weight": 5,
+            "rate": 70
+        }
+    ],
+    "pulses": [
+        {
+            "name": "dal",
+            "weight": 5,
+            "rate": 39
+        },
+        {
+            "name": "groundnut",
+            "weight": 45,
+            "rate": 10
+        },
+        {
+            "name": "greenpea",
+            "weight": 2,
+            "rate": 90
+        }
+    ]
+}
