@@ -1,6 +1,12 @@
 <?php
-    /*********************************Monthly Payment***************************************/
+/*********************************Monthly Payment***************************************/
+/**
+ *
+ * @author chandrashree j
+ * @since 09-01-2019
+ */    
     require 'Util.php';
+    
     echo "Monthly Payment\n";
    
     echo "Enter the principal loan amount \n"; 

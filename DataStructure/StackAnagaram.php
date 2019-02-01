@@ -12,7 +12,6 @@
   function stack_Anag()
   {
     echo " \n";
-    echo "The prime numbers between 0 and 1000 are\n" ;
     // calling get_prime function of Utilds
     $arr = Utilds::get_prime(1000);
 

@@ -1,6 +1,10 @@
 <?php
+// creating Utility class
 class Utility
 {
+ 
+    /*********************************Taking string input from user**************************/
+
     public static function takingstringinput()
     {
         fscanf(STDIN, "%s\n", $txt);
@@ -12,15 +16,10 @@ class Utility
         return $txt;
         
     }
-    public static function replacingstring ()
-    {
-        $txt1 ="Hello <<UserName>>, How are you?\n";
-        $txt2 = "<<UserName>>";
-        echo "enter the string :\n";
-        $txt = Utility::takingstringinput();
-        $str = str_replace($txt2, $txt, $txt1);
-        echo $str;
-    }
+     
+
+
+    /*********************************Taking num input from user***************************************/
     public function takingnuminput()
     {
         fscanf(STDIN, "%s\n",$num);
@@ -31,18 +30,19 @@ class Utility
 
         }
         return $num;
-    }
-    public function taking_num_input()
+    }    
+    /*********************************Replacing String***************************************/
+  
+    public static function replacingstring ()
     {
-        fscanf(STDIN, "%s\n",$num);
-        while(!(is_numeric($num)))
-        {
-            echo "Warning :the num should not contain char\n";
-            fscanf(STDIN, "%s\n",$num);
-
-        }
-        return $num;
+        $txt1 ="Hello <<UserName>>, How are you?\n";
+        $txt2 = "<<UserName>>";
+        echo "enter the string :\n";
+        $txt = Utility::takingstringinput();
+        $str = str_replace($txt2, $txt, $txt1);
+        echo $str;
     }
+    /*********************************Validating Float***************************************/
     public static function validating_float($num)
     {
         if(is_numeric($num) && strpos($num, '.') )
@@ -55,6 +55,7 @@ class Utility
         }
   
     }
+    /*********************************RValidating String***************************************/
     public static function validating_str($num)
     {
         if(is_int($num) || is_float($num))
@@ -67,6 +68,7 @@ class Utility
         }
   
     }
+    /*********************************flip_coin_validation***************************************/
     public static function flip_coin_validation()
     {
         echo "enter a number greater than 0\n";
@@ -79,6 +81,7 @@ class Utility
         return $number;
     }
 
+    /*********************************flip_coin_working***************************************/
     public static function flipingcoin()
     {
         $number =Utility::flip_coin_validation();
@@ -103,6 +106,10 @@ class Utility
         echo "percentage of heads : ".$percenthead;
         echo " (vs) percentage of tail : ".$percenttail."\n";
     }
+
+        
+    /*********************************checking leap year***************************************/
+
     public static function checkingleapyear()
     {
         echo "enter the year to check if it is leap year or not it and it should contain only four digits\n";
@@ -110,7 +117,7 @@ class Utility
         while(!(strlen($year) == 4))
         {
             echo "year should contain 4 digits:\n";
-           $year = Utility::takingnuminput();
+            $year = Utility::takingnuminput();
         }
         if(($year %4 ==0) && (($year % 100 == 0) || ($year % 400==0)))
         {
@@ -123,20 +130,24 @@ class Utility
         
 
     }
+        
+    /*********************************2 power Rising***************************************/
+
     public static function power_rising()
     {
         echo "enter a number btw 0 and 31 only: \n";
         $num =  Utility::takingnuminput();
-        if($num >=0)
-        {
-            echo "2 ^ 0 = 1"; 
-            echo "\n";
-        }
         while(($num >=0) && ( $num >=31 ))
         {
             echo "Warning :the num should be btw 0 and 31 only \n";
             $num =  Utility::takingnuminput();
         }
+        if($num >=0)
+        {
+            echo "2 ^ 0 = 1"; 
+            echo "\n";
+        }
+
         $power =1;
         for($j =1 ; $j <= $num ; $j++)
         {
@@ -145,6 +156,9 @@ class Utility
             echo "\n";
         }
     }
+        
+    /*********************************Harmonic Value***************************************/
+
     public static function printing_harmonic_value()
     {
         echo "enter a number greater than 0 :\n";
@@ -164,6 +178,9 @@ class Utility
         echo $str." = ".$harmonic. "\n";
         //echo "harmonic".$harmonic;
     }
+        
+    /*********************************Prime Factor***************************************/
+
     public static function printing_prime_factor()
     {
         echo "enter a number greater than 0 :\n";
@@ -171,7 +188,7 @@ class Utility
         $str = "";
         while(!($num>2))
         {
-            echo "Warning :the num should not be zero\n";
+            echo "Warning :the num should not be zero and one\n";
             $num =Utility::takingnuminput();      
         }
         if(!(Utility::prime_num($num)))
@@ -203,6 +220,7 @@ class Utility
         }
 
     }
+    //  func to calculate prime factor
     public static function prime_num($num)
     {
         for($i =2; $i<=($num/2); $i++)
@@ -215,6 +233,9 @@ class Utility
         return false;
 
     }
+        
+    /*********************************Gambler***************************************/
+
     public static function gambler_player()
     {
         echo "enter the take\n";
@@ -222,7 +243,7 @@ class Utility
         echo "enter the Goal ,condition: goal should be more than take\n";
         $goal =  Utility::takingnuminput();
         echo "enter the number of times you should play ,condition : it should not be equal to zero\n";
-        //fscanf(STDIN, "%d\n",$num);
+
         $numft =  Utility::takingnuminput();
         $win =0;
         $loss =0;
@@ -239,7 +260,6 @@ class Utility
         }
         while($take > 0 && $take < $goal && $numft > 0)
         {
-            //$num = ;
             
             if((mt_rand(0*10 , 1*10)/10) >0.5)
             {
@@ -261,6 +281,9 @@ class Utility
         echo "percent of loss is $percentloss\n";
 
     }
+        
+    /*********************************Coupon Generator***************************************/
+
     public static function coupon_generator()
     {
         echo "enter the number of times to generate coupon :\n";
@@ -280,7 +303,7 @@ class Utility
             $rdnum=(mt_rand(1*10 ,10*10));
             $count++;
             if(array_search($rdnum,$couparr)==false)
-                  {
+            {
                 $couparr[$i] =$rdnum;
                 $i++;
             }
@@ -291,8 +314,14 @@ class Utility
         }
         echo "\n total number of coupons generated : ".$count."\n";
     }
+    /*********************************global variable***************************************/
+
     public $count =0;
     public $count1 =0;
+
+        
+    /*********************************2D array***************************************/
+
     public static function calling_2Darray($row, $column)
     {
         $count1=0;
@@ -312,39 +341,26 @@ class Utility
             }
 
         }
+        echo "\n";
         $count = $count1+1;
         for($i=0;$i< $row; $i++)
         {
             for($j =0; $j<$column ; $j++)
             {
-                echo $arr[$i][$j];
+                echo $arr[$i][$j]." ";
                 $print = $count1-strlen($arr[$i][$j]);
                 for($m = 0;$m <$print;$m++)
                 {
-                echo " ";
+                    echo " ";
                 }
             }
             echo "\n";
 
         }
     }
+        
+    /*********************************Sum of 3 Integers***************************************/
 
-
-    // public static function printing_2Darray($arr,$row,$column)
-    // {
-   
-    //     for($i=0;$i< $row; $i++)
-    //     {
-    //         echo " [ ";
-    //         for($j =0; $j<$column ; $j++)
-    //         {
-    //          echo $arr[$i][$j]."  ";
-    //         }
-    //         echo "] \n ";
-
-    //     }
-
-    // }
     public static function sum_of_3_ints()
     {
         $arr= array();
@@ -376,6 +392,9 @@ class Utility
 
 
     }
+        
+    /*********************************Distance calculation***************************************/
+
     public static function distance_calculation()
     {
         echo "enter the x value :\n";
@@ -388,6 +407,15 @@ class Utility
         echo "the distance between x and point y is $distance  \n";
 
     }
+        
+    /*********************************String Permutation***************************************/
+    /** 
+    * permutation function 
+    * @param str string to  
+    *  calculate permutation for 
+    * @param l starting index 
+    * @param r end index 
+    */
     public static function string_permutation($str,$l,$r)
     {
         if ($l == $r) 
@@ -396,13 +424,21 @@ class Utility
         { 
             for ($i = $l; $i <= $r; ++$i) 
             { 
-                $str = swap($str, $l, $i); 
-                permute($str, $l + 1, $r); 
-                $str = swap($str, $l, $i); 
+                $str = Utility::swap_string($str, $l, $i); 
+                Utility::string_permutation($str, $l + 1, $r); 
+                $str = Utility::swap_string($str, $l, $i); 
             } 
         } 
 
     }
+    // swaping the string
+    /** 
+    * Swap Characters at position 
+    * @param a string value 
+    * @param i pos 1 
+    * @param j pos 2 
+    * @return swapped string 
+    */
     public static function swap_string($a, $i, $j)
     {
         $temp =$a[$i];
@@ -410,6 +446,9 @@ class Utility
         $a[$j]=$temp;
         return $a;
     }
+       
+    /*********************************Stop Watch***************************************/
+
     public static function elapsed_time_using_stopwatch()
     {
         $bool =true;
@@ -435,6 +474,9 @@ class Utility
         }
         echo "the time elapsed is ".($stop-$start)."\n";
     }
+        
+    /*********************************Quadratic Equation***************************************/
+
     public static function quadratic_equation()
     {
         echo "enter the a value : ";
@@ -443,6 +485,7 @@ class Utility
         $b=  Utility::takingnuminput();
         echo "enter the c value : ";
         $c =  Utility::takingnuminput();
+        
         if($a==0)
         {
             echo "not a quadratic equation \n";
@@ -471,6 +514,9 @@ class Utility
             }
         }
     }
+        
+    /*********************************Wind Chilling***************************************/
+
     public static function wind_chilling()
     {
         echo "enter the temperature which is greater than 50 : ";

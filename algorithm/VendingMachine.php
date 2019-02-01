@@ -1,5 +1,10 @@
 <?php
-    /*********************************Vending Machine***************************************/
+/*********************************Vending Machine***************************************/
+/**
+ *
+ * @author chandrashree j
+ * @since 09-01-2019
+ */    
     require 'Util.php';
     echo "Vending Machine\n";
     echo "Enter your amount \n";

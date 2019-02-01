@@ -1,6 +1,12 @@
 <?php
-    /*********************************Insertion sort for String***************************************/
+/*********************************Insertion sort for String***************************************/
+/**
+ *
+ * @author chandrashree j
+ * @since 09-01-2019
+ */
     require 'Util.php';
+    
     echo "Insertion sort for String\n";
 
     echo "Enter the length of array: \n";

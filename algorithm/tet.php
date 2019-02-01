@@ -41,5 +41,20 @@
 
     }
     insertion_sort_for_num();
-
+        // $number = $num;
+        // $num = decbin($num);
+        // $str = "".$num;
+       // echo " hey";
+        while($num >0)
+        {   $r = $num % 2;
+            //echo $r ." ";
+            $str = $str + $r;
+            //cho $str ." ";
+            $num = ($num/2);
+            //echo $num ." ";
+        }
+        // if(strlen($str) < 8)
+        // {
+        //     $str = "0"+$str;
+        // }
 ?>

@@ -159,6 +159,7 @@ public static function binary_sort_for_num()
 
     }
 /*********************************Bubble sort for String***************************************/
+    //@param $num is length of array
     public static function bubble_sort_for_str($arr, $num)
     {
 
@@ -261,8 +262,9 @@ public static function binary_sort_for_num()
 
     public static function decimal_to_binary($num)  
     {
+        $str ="";
         $arr =array();
-         $i = 0; 
+        $i = 0; 
         while ($num > 0)  
         { 
             // storing remainder in binary array 
@@ -272,29 +274,16 @@ public static function binary_sort_for_num()
             $num=$num[0];
             $i++; 
         } 
-        return $arr;
-
-    //     // $number = $num;
-    //     // $num = decbin($num);
-    //     // $str = "".$num;
-    //    // echo " hey";
-    //     while($num >0)
-    //     {   $r = $num % 2;
-    //         //echo $r ." ";
-    //         $str = $str + $r;
-    //         //cho $str ." ";
-    //         $num = ($num/2);
-    //         //echo $num ." ";
-    //     }
-    //     // if(strlen($str) < 8)
-    //     // {
-    //     //     $str = "0"+$str;
-    //     // }
-        while(count($arr) < 8)
+        for($j=0; $j<count($arr);$j++)
+        {
+            $str = $arr[$j]+$str;
+        }
+        while(!count($arr) < 8)
         {
             $str="0".$str;
         }
-            return $str;
+        return $str;
+
     }
 /*********************************Binary to Decimal and vise verse***************************************/
     public static function binary_to_decimal($num)

@@ -11,24 +11,24 @@
             "rate": 30
         },
         {
-            "name": "arbio",
-            "weight": 3,
-            "rate": 47
+            "name": "adi",
+            "weight": 5,
+            "rate": 100
         }
     ],
     "wheat": [
         {
-            "name": "aaaa",
+            "name": "ashirwad",
             "weight": 2,
             "rate": 20
         },
         {
-            "name": "bbb",
+            "name": "pilsbury",
             "weight": 4,
             "rate": 30
         },
         {
-            "name": "ccc",
+            "name": "arbio",
             "weight": 5,
             "rate": 70
         }
