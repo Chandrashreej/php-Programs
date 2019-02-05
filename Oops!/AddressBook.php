@@ -2,12 +2,12 @@
 /**
  * program that can be used to maintain an address book. An address book holds a collection of entries,
  * each recording a person's first and last names, address, city, state, zip, and phone number.
- *
+ * 
  * @author chandrashreej
  */
 
 //files containing important function
-require ('Utilioops.php');
+require("Utilioops.php");
 
 /**
  * class person containing properties of person for address book
@@ -16,34 +16,19 @@ class Person
 {
     //var fname to store first name of the person
     public $fname;
-
     //var lname to store the last name of the person
     public $lname;
-
     //var address to store the address of person as a string
     public $address;
-
     //var city to store the name of the city of person
     public $city;
-
     //var stte to store the state of the person
     public $state;
-
-    //var zip to store the zip code of the city
+    //var zip to store the zip code of the city 
     public $zip;
-
-    //var phone to store the phone no of the person
+    //var phone to store the phone no of the person 
     public $phone;
 }
-
-
-
-
-
-
-
-
-
 /**
  * function to create person objest by askin value from console
  * @param addressbook  the array of addressbook to store created person object
@@ -52,41 +37,24 @@ function createPerson(&$addressBook)
 {
     //var person to store the person object
     $person = new Person();
-    
     //asking user for input for person object
     echo "Enter Firstname \n";
     $person->fname = Utilioops::taking_string_input();
-
     echo "Enter Lastname \n";
     $person->lname = Utilioops::taking_string_input();
-
     echo "Enter State\n";
     $person->state = Utilioops::taking_string_input();
-
     echo "Enter City\n";
     $person->city = Utilioops::taking_string_input();
-
     echo "Enter Zip of $person->city\n";
-
     $person->zip = validInt(Utilioops::taking_Num_Input(), 100000, 10000000);
-
     echo "Enter Address\n";
     $person->address = Utilioops::taking_string_input();
-
     echo "Enter Mobile Number \n";
     $person->phone = validInt(Utilioops::taking_Num_Input(), 1000000000, 10000000000);
-
     //adding it to the array address book
     $addressBook[] = $person;
 }
-/**
- * function to validate integer input from the user and ask the user until proper input is fount and return it
- * @param int the value to verify as int
- * @param min the minimum value of the integer
- * @param max the maximum value of the integer
- * @return int the valid int in that range
- *
- */
 /**
  * function to edit the details of a person
  * @param the person object to edit the details
@@ -187,6 +155,84 @@ function save($addressBook)
 {
     file_put_contents("AddressBook.json", json_encode($addressBook));
 }
+/**
+ * function act as a default menu for the program
+ */
+function menu($addressBook)
+{
+    echo "\n!!!!Address Book!!!!\n\nEnter 1 to add person\nEnter 2 to Edit a person\nEnter 3 to Delete a person\nEnter 4 to Sort and Display\nEnter 5 to search\nEnter anything to exit\n";
+    $ch = Utilioops::taking_Num_Input();
+    switch ($ch) {
+        case '1':
+            createPerson($addressBook);
+            menu($addressBook);
+            break;
+        case '2':
+            $k = 2;
+            while (($i = search($addressBook)) === -1) {
+                var_dump($i);
+                echo "No enteries Found\nenter 1 to exit to MENU or Else to search again\n";
+                fscanf(STDIN, "%s\n", $k);
+                if ($k == 1) {
+                    break;
+                }
+            }
+            // /var_dump($i);
+            if ($k == 1) {
+                menu($addressBook);
+            } else {
+                $addressbook[$i] = edit($addressBook[$i]);
+            }
+            menu($addressBook);
+            break;
+        case '3':
+            delete($addressBook);
+            menu($addressBook);
+            break;
+        case '4':
+            echo "Enter 1 to sort by Name\nEnter 2 to sort by Zip\nElse to Menu";
+            $c = Utilioops::taking_Num_Input();
+            if($c == 1){
+                sortBook($addressBook , "fname");
+                printBook($addressBook);
+            }
+            else if($c == 2 ){
+                sortBook($addressBook , "zip");
+                printBook($addressBook);
+            }
+            else{
+                menu($addressBook);
+            }
+            fscanf(STDIN, "%s\n");
+            menu($addressBook);
+            break;
+        case '5':
+            $i = search($addressBook);
+            if($i>-1){
+                $arr=[];
+                $arr[] = $addressBook[$i];
+                printBook($arr);
+            }
+            echo"\n";
+            fscanf(STDIN, "%s\n");
+            menu($addressBook);
+            break;
+        default:
+            echo "Enter 1 to save ";
+            if (Utilioops::taking_Num_Input() == 1) {
+                save($addressBook);
+            }
+            break;
+    }
+}
+/**
+ * function to validate integer input from the user and ask the user until proper input is fount and return it
+ * @param int the value to verify as int
+ * @param min the minimum value of the integer
+ * @param max the maximum value of the integer
+ * @return int the valid int in that range 
+ * 
+ */
 function validInt($int, $min, $max)
 {
     while (filter_var($int, FILTER_VALIDATE_INT, array("options" => array("min_range" => $min, "max_range" => $max))) === false) {
@@ -196,123 +242,6 @@ function validInt($int, $min, $max)
     }
     return $int;
 }
-function createAddressBook()
-{
-    echo "filename\n";
-    $filename = Utilioops::taking_string_input();
-       
-
-    if (file_exists('/home/bridgeit/ChandraShree/Oops!/'. $filename))
-    {
-       $arr = Utilioops::read_JSON_File($filename);
-       return $arr;
-
-    }
-    else{
-        file_put_contents('/home/bridgeit/ChandraShree/Oops!/'. $filename, FILE_APPEND | LOCK_EX);
-        $arr = Utilioops::read_JSON_File($filename);
-        return $arr;
-    }
-
-
-}
-function menu($addressBook)
-{    
-        
-echo "\n-------Address Book--------\n\nEnter 1 to add person\nEnter 2 to Edit a person\nEnter 3 to Delete a person\nEnter 4 to Sort and Display\nEnter 5 to search\nEnter 6 to save\nEnter anything to exit\n";
-$ch = Utilioops::taking_Num_Input();
-switch ($ch) {
-    case '1':
-        createPerson($addressBook);
-        menu($addressBook);
-        return;
-    case '2':
-        $k = 2;
-        while (($i = search($addressBook)) === -1) {
-            var_dump($i);
-            echo "No enteries Found\nenter 1 to exit to MENU or Else to search again\n";
-            fscanf(STDIN, "%s\n", $k);
-            if ($k == 1) {
-                break;
-            }
-        }
-        // /var_dump($i);
-        if ($k == 1) {
-            menu($addressBook);
-        } else {
-            $addressbook[$i] = edit($addressBook[$i]);
-        }
-        menu($addressBook);
-        break;
-    case '3':
-        delete($addressBook);
-        menu($addressBook);
-        break;
-    case '4':
-        echo "Enter 1 to sort by Name\nEnter 2 to sort by Zip\nElse to Menu";
-        $c = Utilioops::taking_Num_Input();
-        if ($c == 1) {
-            sortBook($addressBook, "fname");
-            printBook($addressBook);
-        } else if ($c == 2) {
-            sortBook($addressBook, "zip");
-            printBook($addressBook);
-        } else {
-            menu($addressBook);
-        }
-        fscanf(STDIN, "%s\n");
-        menu($addressBook);
-        break;
-    case '5':
-        $i = search($addressBook);
-        if ($i > -1) {
-            $arr = [];
-            $arr[] = $addressBook[$i];
-            printBook($arr);
-        }
-        echo "\n";
-        fscanf(STDIN, "%s\n");
-        menu($addressBook);
-        break;
-    case '6':
-
-            save($addressBook);
-            echo "\nSaved succesfully\n";
-            menu($addressBook);
-        break;
-    default : 
-            echo "---------Quiting the Address Book---------\n";
-            return;
-            
-            
-
-}
-}
-function mainMenu()
-{
-    $firstChoice = 0;
-    echo "\n press 1 to create new Address Book \n press 2 to work the Address book \n press 3 to exit the app\n";
-    $firstChoice = Utilioops::taking_Num_Input();
-    
-    while($firstChoice <= 3){
-        if($firstChoice == 1)
-        {
-            $arr = createAddressBook();
-            menu($arr);
-        }
-        elseif($firstChoice ==2){
-            $arr = createAddressBook();
-            menu($arr);
-
-    }
-        else
-        {
-            echo "----Quit Application---";
-            break;
-        }
-    
-    
-    }
-}
-mainMenu();
+$arr = json_decode(file_get_contents("AddressBook.json"));
+menu($arr);
 ?>

@@ -13,7 +13,10 @@ class Node
         $this->next = $next;
     }
 
-
+    function getData()
+    {
+        return $this->data;
+    }
 }
 
 ?>

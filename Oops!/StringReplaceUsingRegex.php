@@ -9,76 +9,84 @@
 // requires below .php file to work on
 require "Utilioops.php";
 
-//taking first name from user
-echo "Enter the first name :\n";
-$firstName = Utilioops::taking_string_input(); //validating the name
+//enabling try catch
+try{
 
-//taking number of words present in their name if needed
-echo "Enter the no. of words present in full name :\n";
-$n = Utilioops::taking_Num_Input(); //validating the num
 
-// based on the number provided by user taking front , middle, last name
-if ($n == 1) {
+    //taking first name from user
+    echo "Enter the first name :\n";
+    $firstName = Utilioops::taking_string_input(); //validating the name
 
-    // this loop is working only when user has only one word in his/her name
-    echo "Enter the fullName :\n";
-    $fullName = Utilioops::taking_string_input(); //validating the name
+    //taking number of words present in their name if needed
+    echo "Enter the no. of words present in full name :\n";
+    $n = Utilioops::taking_Num_Input(); //validating the num
 
-} elseif ($n == 2) {
+    // based on the number provided by user taking front , middle, last name
+    if ($n == 1) {
 
-    // this loop is working only when user has only two words in his/her name
-    echo "Enter the frontName :\n";
-    $frontName = Utilioops::taking_string_input(); //validating the name
+        // this loop is working only when user has only one word in his/her name
+        echo "Enter the fullName :\n";
+        $fullName = Utilioops::taking_string_input(); //validating the name
 
-    echo "Enter the MiddleName :\n";
-    $midName = Utilioops::taking_string_input(); //validating the name
+    } elseif ($n == 2) {
 
-    $fullName = "" . $frontName . " " . $midName;
+        // this loop is working only when user has only two words in his/her name
+        echo "Enter the frontName :\n";
+        $frontName = Utilioops::taking_string_input(); //validating the name
 
-} elseif ($n == 3) {
+        echo "Enter the MiddleName :\n";
+        $midName = Utilioops::taking_string_input(); //validating the name
 
-    // this loop is working only when user has only three words in his/her name
-    echo "Enter the frontName :\n";
-    $frontName = Utilioops::taking_string_input(); //validating the name
+        $fullName = "" . $frontName . " " . $midName;
 
-    echo "Enter the MiddleName :\n";
-    $midName = Utilioops::taking_string_input(); //validating the name
+    } elseif ($n == 3) {
 
-    echo "Enter the lastName :\n";
-    $lastName = Utilioops::taking_string_input(); //validating the name
+        // this loop is working only when user has only three words in his/her name
+        echo "Enter the frontName :\n";
+        $frontName = Utilioops::taking_string_input(); //validating the name
 
-    $fullName = "" . $frontName . " " . $midName . " " . $lastName;
+        echo "Enter the MiddleName :\n";
+        $midName = Utilioops::taking_string_input(); //validating the name
 
-} else {
+        echo "Enter the lastName :\n";
+        $lastName = Utilioops::taking_string_input(); //validating the name
 
-    // this loop is working only when user has four or above words in his/her name
-    echo "Invalid name couldnt give so much space!!!\n";
-    return;
+        $fullName = "" . $frontName . " " . $midName . " " . $lastName;
 
-}
+    } else {
 
-// taking number input from user
-echo "Enter the mobNum :\n";
-$mobNum = Utilioops::taking_Num_Input(); //validating the num
+        // this loop is working only when user has four or above words in his/her name
+        echo "Invalid name couldnt give so much space!!!\n";
+        return;
 
-while (strlen($mobNum) != 10) {
+    }
 
-    // loop works only when the mobile number is not 10 digit
-    echo "Enter the mobNum and digits should be 10 :\n";
+    // taking number input from user
+    echo "Enter the mobNum :\n";
     $mobNum = Utilioops::taking_Num_Input(); //validating the num
 
+    while (strlen($mobNum) != 10) {
+
+        // loop works only when the mobile number is not 10 digit
+        echo "Enter the mobNum and digits should be 10 :\n";
+        $mobNum = Utilioops::taking_Num_Input(); //validating the num
+
+    }
+
+    // to calculate current date
+    $currDate = date("d/m/Y");
+
+    // temporary string to get file name
+    $str = "StringReplace.txt";
+
+    // to open and read the file and get data from the file
+    $fileString = Utilioops::working_With_File($str, "r", "ok");
+
+    // calling regex_String_Replace function where the actual logic is done
+    Utilioops::regex_String_Replace($firstName, $fullName, $mobNum, $currDate, $fileString);
+
+} catch (Exception $e) {
+    // to print the messeage
+    echo "\n", $e->getMessage();
 }
-
-// to calculate current date
-$currDate = date("d/m/Y");
-
-// temporary string to get file name
-$str = "StringReplace.txt";
-
-// to open and read the file and get data from the file
-$fileString = Utilioops::working_With_File($str, "r", "ok");
-
-// calling regex_String_Replace function where the actual logic is done
-Utilioops::regex_String_Replace($firstName, $fullName, $mobNum, $currDate, $fileString)
-
 ?>

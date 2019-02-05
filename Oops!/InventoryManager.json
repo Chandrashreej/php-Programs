@@ -1,0 +1,53 @@
+{
+    "Phone": [
+        {
+            "name": "Mi",
+            "shares": 5,
+            "rate": 700000
+        },
+        {
+            "name": "Lenovo",
+            "shares": 7,
+            "rate": 30000
+        },
+        {
+            "name": "sony",
+            "shares": 5,
+            "rate": 1000000
+        }
+    ],
+    "PC": [
+        {
+            "name": "LG",
+            "shares": 2,
+            "rate": 200000
+        },
+        {
+            "name": "SUMSUNG",
+            "shares": 4,
+            "rate": 300000
+        },
+        {
+            "name": "CIRCLE",
+            "shares": 5,
+            "rate": 700000
+        }
+    ],
+    "Cars": [
+        {
+            "name": "BENZ",
+            "shares": 5,
+            "rate": 390000
+        },
+        {
+            "name": "BMW",
+            "shares": 45,
+            "rate": 1000000
+        },
+        {
+            "name": "audi",
+            "shares": 2,
+            "rate": 9000000
+        }
+    ]
+}

@@ -92,12 +92,12 @@ class Utilioops
      */
     public static function regex_String_Replace($firstName, $fullName, $mobNum, $currDate, $fileString)
     {
-        $fileString =preg_replace('/<<name>>/',$firstName,$fileString);
-        $fileString =preg_replace('/<<full name>>/',$fullName,$fileString);
-        $fileString =preg_replace('/xxxxxxxxxx/',$mobNum,$fileString);
-        $fileString =preg_replace('/01-01-2016/',$currDate,$fileString);
+        $fileString = preg_replace('/<<name>>/', $firstName, $fileString);
+        $fileString = preg_replace('/<<full name>>/', $fullName, $fileString);
+        $fileString = preg_replace('/xxxxxxxxxx/', $mobNum, $fileString);
+        $fileString = preg_replace('/01-01-2016/', $currDate, $fileString);
         echo "\n";
-        echo $fileString."\n";
+        echo $fileString . "\n";
     }
     /********************************************************************************************************/
     /**
@@ -108,9 +108,9 @@ class Utilioops
     {
         fscanf(STDIN, "%s\n", $num);
         // validating untill the user gives correct information
-        while ((Utilioops::validating_Float($num)) && !(is_numeric($num))  && ($num<0)){
+        while ((Utilioops::validating_Float($num)) || (!(is_numeric($num)))) {
             echo "Warning :the num should not be decimal and it should not contain char\n";
-            fscanf(STDIN, "%s\n", $num);
+            $num = Utilioops::taking_Num_Input();
 
         }
         return $num;
@@ -157,16 +157,46 @@ class Utilioops
      */
     public static function working_With_File($str, $s, $ryt)
     {
-        // if and elseif condition for read or write a file 
+        // if and elseif condition for read or write a file
         if ($s == "r") {
-            $myfile = fopen($str, "r") or die("unable to open");
-            $line = fread($myfile, filesize($str));
-            //$str = explode(" ", $line);
-            return $line;
+
+            $myfile = fopen($str, "r") or die("unable to open"); //to open the file
+            $line = fread($myfile, filesize($str)); //to read the file
+
+            return $line; // returns what is in file
+
         } elseif ($s == "w") {
-            $myfile = fopen($str, "w") or die("unable to open");
-            fwrite($str, $ryt);
-            return null;
+
+            $myfile = fopen($str, "w") or die("unable to open"); //to open the file
+            fwrite($str, $ryt); //to write in file
+            return null; //returns null
+
         }
+    }
+
+/*****************************************************************************************************/
+    /**
+     *creating the funct insertionSortForStr
+     * @param ask for $array and length of array
+     * @return returns array
+     */
+    public static function insertionSortForStr($arr, $num)
+    {
+        for ($i = 1; $i < $num; $i++) {
+
+            for ($j = $i; $j > 0; $j--) {
+
+                if ($arr[$j - 1] > $arr[$j]) {
+                    
+                    $temp = $arr[$j - 1];
+                    $arr[$j - 1] = $arr[$j];
+                    $arr[$j] = $temp;
+                }
+
+            }
+
+        }
+        return $arr;
+
     }
 }
