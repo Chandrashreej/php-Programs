@@ -13,6 +13,7 @@ require "Utilioops.php";
 try{
 
 
+
     //taking first name from user
     echo "Enter the first name :\n";
     $firstName = Utilioops::taking_string_input(); //validating the name
@@ -63,27 +64,25 @@ try{
 
     // taking number input from user
     echo "Enter the mobNum :\n";
-    $mobNum = Utilioops::taking_Num_Input(); //validating the num
-
-    while (strlen($mobNum) != 10) {
-
-        // loop works only when the mobile number is not 10 digit
-        echo "Enter the mobNum and digits should be 10 :\n";
-        $mobNum = Utilioops::taking_Num_Input(); //validating the num
-
-    }
+    $mobNum = Utilioops::phone_Num();
 
     // to calculate current date
     $currDate = date("d/m/Y");
 
-    // temporary string to get file name
-    $str = "StringReplace.txt";
+    //declaring a name for file
+    $file = 'StringReplace.json';
 
-    // to open and read the file and get data from the file
-    $fileString = Utilioops::working_With_File($str, "r", "ok");
+    //passing file to get the object
+    $str = Utilioops::read_JSON_File($file);
+
+    //getting the value of object using its key and storing it in string variable
+    $str = $str['string'];
+    echo"\n";
+    echo "displaying the message\n\n";
+    echo $str."\n\n";
 
     // calling regex_String_Replace function where the actual logic is done
-    Utilioops::regex_String_Replace($firstName, $fullName, $mobNum, $currDate, $fileString);
+    Utilioops::regex_String_Replace($firstName, $fullName, $mobNum, $currDate, $str);
 
 } catch (Exception $e) {
     // to print the messeage

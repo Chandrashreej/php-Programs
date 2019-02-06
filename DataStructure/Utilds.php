@@ -54,6 +54,17 @@ class Utilds
         }
   
     }
+ /*****************************Binary Search Tree*****************************************/     
+    //Function to find the factorial
+     
+    public static function factorial($n)
+    {
+        $fact = 1;
+        for ($i = 1; $i <= $n; $i++) {
+            $fact = $fact * $i;
+        }
+        return $fact;
+    }
 
 /*****************************************Validating_String*************************************************/
 
