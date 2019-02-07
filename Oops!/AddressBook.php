@@ -222,7 +222,7 @@ function createAddressBook()
     $filename = Utilioops::taking_string_input(); //taking user input and validating in utilioops
 
     if (file_exists('/home/bridgeit/ChandraShree/Oops!/' . $filename)) {
-        
+
         $arr = Utilioops::read_JSON_File($filename); //calling read_JSON_File from utilioops to get array
 
         return $arr; //return the array
@@ -247,22 +247,21 @@ function menu($addressBook)
 
     echo "\n-------Address Book--------\n\n Press 1 to add person :\n Press 2 to edit a person :\n Press 3 to delete a person : \n Press 4 to sort and Display : \n Press 5 to search : \n Press 6 to save : \n Press anything to exit :\n";
     $ch = Utilioops::taking_Num_Input(); //taking user input and validating in utilioops
-    
+
     //switch function for selected choice
     switch ($ch) {
 
         case '1':
 
             //when 1 is selected
-            createPerson($addressBook);//calling creating person
+            createPerson($addressBook); //calling creating person
 
-            menu($addressBook);//calling menu function
+            menu($addressBook); //calling menu function
 
             break;
-        
 
         case '2':
-            
+
             //when 2 is selected
             $num = 2;
 
@@ -272,29 +271,29 @@ function menu($addressBook)
 
                 echo "No enteries Found : \n Press 1 to exit to --MENU-- or Else to search again\n";
                 fscanf(STDIN, "%s\n", $num);
-                
-                if ($num == 1) {//depending on user input it enters
+
+                if ($num == 1) { //depending on user input it enters
 
                     break;
                 }
             }
 
             if ($k == 1) {
-                menu($addressBook);//calling menu function
+                menu($addressBook); //calling menu function
             } else {
                 $addressbook[$i] = edit($addressBook[$i]);
             }
 
-            menu($addressBook);//calling menu function
+            menu($addressBook); //calling menu function
 
             break;
 
         case '3':
 
             //when 3 is selected
-            delete($addressBook);//calling deleting function
+            delete($addressBook); //calling deleting function
 
-            menu($addressBook);//calling menu function
+            menu($addressBook); //calling menu function
 
             break;
 
@@ -306,65 +305,65 @@ function menu($addressBook)
 
             if ($c == 1) {
 
-                sortBook($addressBook, "fname");//sorting the data
+                sortBook($addressBook, "fname"); //sorting the data
 
-                printBook($addressBook);//printing the data
+                printBook($addressBook); //printing the data
 
             } else if ($c == 2) {
 
-                sortBook($addressBook, "zip");//sorting the data
+                sortBook($addressBook, "zip"); //sorting the data
 
-                printBook($addressBook);//printing the data
+                printBook($addressBook); //printing the data
 
             } else {
 
-                menu($addressBook);//calling menu function
+                menu($addressBook); //calling menu function
 
             }
 
             fscanf(STDIN, "%s\n");
 
-            menu($addressBook);//calling menu function
+            menu($addressBook); //calling menu function
 
             break;
 
         case '5':
 
-            $i = search($addressBook);//calling search function to search data
+            $i = search($addressBook); //calling search function to search data
 
             if ($i > -1) {
 
-                $arr = [];//creating array
+                $arr = []; //creating array
 
-                $arr[] = $addressBook[$i];//adding all the data to temp aaray
+                $arr[] = $addressBook[$i]; //adding all the data to temp aaray
 
-                printBook($arr);//calling printBook function to print data
+                printBook($arr); //calling printBook function to print data
 
             }
             echo "\n";
             fscanf(STDIN, "%s\n");
 
-            menu($addressBook);//calling menu function
+            menu($addressBook); //calling menu function
 
             break;
 
         case '6':
             echo "filename to save\n";
             $filename = Utilioops::taking_string_input();
-            save($addressBook, $filename);//calling save function to save files
+            save($addressBook, $filename); //calling save function to save files
 
             echo "\nSaved succesfully\n";
 
-            menu($addressBook);//calling menu function
+            menu($addressBook); //calling menu function
 
             break;
 
         default:
-        {
-            echo "---------Quiting the Address Book---------\n";
-            mainMenu();//calling mainmenu function
-            return;
-        }
+            {
+                echo "---------Quiting the Address Book---------\n";
+                mainMenu(); //calling mainmenu function
+                return;
+            }
 
     }
 }
@@ -378,38 +377,38 @@ function mainMenu()
     $firstChoice = 0;
 
     echo "\n Press 1 to create new Address Book : \n Press 2 to work the Address book :\n Press 3 to exit the app :\n";
-    $firstChoice = Utilioops::taking_Num_Input();//taking user input and validating in utilioops
+    $firstChoice = Utilioops::taking_Num_Input(); //taking user input and validating in utilioops
 
     //looping through for selected choice
     while ($firstChoice != 3) {
 
         if ($firstChoice == 1) {
 
-            $addressBook = createAddressBook();//calling createAddressBook function to create object
+            $addressBook = createAddressBook(); //calling createAddressBook function to create object
             echo "Press 2 to work with same file \n";
             mainMenu();
-            
-            menu($addressBook);//calling menu function
 
-            mainMenu();//calling mainmenu function
+            menu($addressBook); //calling menu function
+
+            mainMenu(); //calling mainmenu function
 
         } elseif ($firstChoice == 2) {
 
             $addressBook = createAddressBook();
 
-            menu($addressBook);//calling menu function
+            menu($addressBook); //calling menu function
 
-            mainMenu();//calling mainmenu function
+            mainMenu(); //calling mainmenu function
 
         } else {
 
-            echo "----Quit Application---";//exiting the app
+            echo "----Quit Application---"; //exiting the app
 
             return;
         }
 
     }
-    echo "----Quit Application---!!!!";//exiting the app
+    echo "----Quit Application---!!!!"; //exiting the app
     return;
 }
-mainMenu();//calling mainmenu to interact with user
+mainMenu(); //calling mainmenu to interact with user
