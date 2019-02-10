@@ -112,8 +112,11 @@ class ChocolateBorrower
         //if and else condition to check if the object is used by some other
         if (true == $this->haveChocolate) {
             return $this->borrowedChocolate->getNameAndPrice();
+
         } else {
+
             return "Sorry I don't have the chocolate \n";
+
         }
     }
     /**
@@ -125,9 +128,13 @@ class ChocolateBorrower
     {
         $this->borrowedChocolate = ChocolateSingleton::borrowChocolate();
         if ($this->borrowedChocolate == null) {
+
             $this->haveChocolate = false;
+
         } else {
+
             $this->haveChocolate = true;
+
         }
     }
 
@@ -141,10 +148,7 @@ class ChocolateBorrower
         $this->borrowedChocolate->returnChocolate($this->borrowedChocolate);
     }
 }
-
-/**
- * Initialization
- */
+/***************************************Testing********************************************/
 echo ("\n----------SINGLETON DESIGN PATTERN------------\n");
 echo ("---------BEGIN TESTING SINGLETON PATTERN----------\n");
 echo ("\n");
