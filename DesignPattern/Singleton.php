@@ -7,6 +7,14 @@
  */
 
 /**
+ * error handler to handle errors
+ */
+set_error_handler(function ($errno, $errstr, $error_file, $error_line) {
+    echo "______Error Occured_____handle it\n";
+    echo "Error: [$errno] $errstr - $error_file:$error_line \n";
+    die();
+});
+/**
  *Creating Singleton class
  */
 class ChocolateSingleton
@@ -33,14 +41,14 @@ class ChocolateSingleton
      */
     public static function borrowChocolate()
     {
-        if (false == self::$isGivenOut) {
+        if (false == self::$isGivenOut) { //checking the static varible is fale or true
             if (null == self::$chocolate) {
-                self::$chocolate = new ChocolateSingleton();
+                self::$chocolate = new ChocolateSingleton(); //if static variable chocolate is not null creates new Chocolate
             }
-            self::$isGivenOut = true;
-            return self::$chocolate;
+            self::$isGivenOut = true; //after the chocolate object is created boolen static variable is turned to true
+            return self::$chocolate; //returning the chocolate object
         } else {
-            return null;
+            return null; //else returns null
         }
     }
 
@@ -51,7 +59,7 @@ class ChocolateSingleton
      */
     public function returnChocolate()
     {
-        self::$isGivenOut = false;
+        self::$isGivenOut = false; //checking the static varible is fale or true
     }
 
     /**
@@ -110,7 +118,8 @@ class ChocolateBorrower
     public function getNameAndPrice()
     {
         //if and else condition to check if the object is used by some other
-        if (true == $this->haveChocolate) {
+        if (true == $this->haveChocolate) { ////checking the static varible is false or true
+
             return $this->borrowedChocolate->getNameAndPrice();
 
         } else {
@@ -126,14 +135,14 @@ class ChocolateBorrower
      */
     public function borrowChocolate()
     {
-        $this->borrowedChocolate = ChocolateSingleton::borrowChocolate();
+        $this->borrowedChocolate = ChocolateSingleton::borrowChocolate(); //calling function borrowChocolate from ChocolateSingleton class
         if ($this->borrowedChocolate == null) {
 
-            $this->haveChocolate = false;
+            $this->haveChocolate = false; // the static varible is assigned false
 
         } else {
 
-            $this->haveChocolate = true;
+            $this->haveChocolate = true; //the static varible is assigned false
 
         }
     }
@@ -149,44 +158,54 @@ class ChocolateBorrower
     }
 }
 /***************************************Testing********************************************/
-echo ("\n----------SINGLETON DESIGN PATTERN------------\n");
-echo ("---------BEGIN TESTING SINGLETON PATTERN----------\n");
-echo ("\n");
+try {
+    echo ("\n----------SINGLETON DESIGN PATTERN------------\n");
+    echo ("---------BEGIN TESTING SINGLETON PATTERN----------\n");
+    echo ("\n");
 
-//creating new ChocolateBorrower object
-$firstChocolateBorrower = new ChocolateBorrower();
+    //creating new ChocolateBorrower object
+    $firstChocolateBorrower = new ChocolateBorrower();
 
-//creating new ChocolateBorrower object
-$secondChocolateBorrower = new ChocolateBorrower();
+    //creating new ChocolateBorrower object
+    $secondChocolateBorrower = new ChocolateBorrower();
 
-//calling borrowChocolate using ChocolateBorrower object
-$firstChocolateBorrower->borrowChocolate();
-echo ("\nfirstChocolateBorrower asked to borrow the chocolate\n");
-echo ("firstChocolateBorrower Name and price of chocolate if he have: ");
-//calling getNameAndPrice using ChocolateBorrower object
-echo ($firstChocolateBorrower->getNameAndPrice());
-echo ("\n");
-echo ("\n");
-//calling borrowChocolate using ChocolateBorrower object
-$secondChocolateBorrower->borrowChocolate();
-echo ("secondChocolateBorrower asked to borrow the book\n");
-echo ("secondChocolateBorrower Name and price of chocolate if he have: ");
+    //calling borrowChocolate using ChocolateBorrower object
+    $firstChocolateBorrower->borrowChocolate();
 
-//calling getNameAndPrice using ChocolateBorrower object
-echo ($secondChocolateBorrower->getNameAndPrice());
-echo ("\n");
-//calling returnChocolate using ChocolateBorrower object
-$firstChocolateBorrower->returnChocolate();
-echo ("firstChocolateBorrower returned the Chocolate\n");
-echo ("\n");
+    echo ("\nfirstChocolateBorrower asked to borrow the chocolate\n");
+    echo ("firstChocolateBorrower Name and price of chocolate if he have: ");
+    //calling getNameAndPrice using ChocolateBorrower object
+    echo ($firstChocolateBorrower->getNameAndPrice());
+    echo ("\n");
+    echo ("\n");
 
-//calling borrowChocolate using ChocolateBorrower object
-$secondChocolateBorrower->borrowChocolate();
-echo ("secondChocolateBorrower Name and price of chocolate if he have: ");
+    //calling borrowChocolate using ChocolateBorrower object
+    $secondChocolateBorrower->borrowChocolate();
+    echo ("secondChocolateBorrower asked to borrow the book\n");
+    echo ("secondChocolateBorrower Name and price of chocolate if he have: ");
 
-//calling getNameAndPrice using ChocolateBorrower object
-echo ($firstChocolateBorrower->getNameAndPrice());
-echo ("\n");
+    //calling getNameAndPrice using ChocolateBorrower object
+    echo ($secondChocolateBorrower->getNameAndPrice());
+    echo ("\n");
 
-echo ("------------END TESTING SINGLETON PATTERN----------------\n");
-echo ("\n");
+    //calling returnChocolate using ChocolateBorrower object
+    $firstChocolateBorrower->returnChocolate();
+    echo ("firstChocolateBorrower returned the Chocolate\n");
+    echo ("\n");
+
+    //calling borrowChocolate using ChocolateBorrower object
+    $secondChocolateBorrower->borrowChocolate();
+    echo ("secondChocolateBorrower Name and price of chocolate if he have: ");
+
+    //calling getNameAndPrice using ChocolateBorrower object
+    echo ($firstChocolateBorrower->getNameAndPrice());
+
+    echo ("\n");
+
+} catch (Exception $e) {
+
+    echo "\n", $e->getMessage(); //printing the exception message
+} finally {
+    echo ("------------END TESTING SINGLETON PATTERN----------------\n");
+    echo ("\n");
+}

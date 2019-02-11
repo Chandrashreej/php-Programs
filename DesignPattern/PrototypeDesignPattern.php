@@ -40,20 +40,32 @@ class MyCloneable
         $this->firstObject = clone $this->firstObject;
     }
 }
-//creating MyCloneable object for testing clone
-$obj = new MyCloneable();
+try {
+    echo ("\n----------PROTOTYPE DESIGN PATTERN------------\n");
+    echo ("---------BEGIN TESTING PROTOTYPE PATTERN----------\n");
+    echo ("\n");
 
-//creating SubObject class's object in instance variable of obj
-$obj->firstObject = new SubObject();
-$obj->secondObject = new SubObject();
+    //creating MyCloneable object for testing clone
+    $obj = new MyCloneable();
 
-//cloning the obj to new obj
-$secObj = clone $obj;
+    //creating SubObject class's object in instance variable of obj
+    $obj->firstObject = new SubObject();
+    $obj->secondObject = new SubObject();
 
-//pringing the original object
-print("Original Object:\n");
-print_r($obj);
+    //cloning the obj to new obj
+    $secObj = clone $obj;
 
-//printing the clonead object
-print("Cloned Object:\n");
-print_r($secObj);
+    //pringing the original object
+    print("Original Object:\n");
+    print_r($obj);
+
+    //printing the clonead object
+    print("Cloned Object:\n");
+    print_r($secObj);
+
+} catch (Exception $e) {
+    echo "\n", $e->getMessage();
+} finally {
+    echo ("------------END TESTING PROTOTYPE PATTERN----------------\n");
+    echo ("\n");
+}
