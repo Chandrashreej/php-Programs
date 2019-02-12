@@ -40,6 +40,8 @@ class MyCloneable
         $this->firstObject = clone $this->firstObject;
     }
 }
+
+//try catch
 try {
     echo ("\n----------PROTOTYPE DESIGN PATTERN------------\n");
     echo ("---------BEGIN TESTING PROTOTYPE PATTERN----------\n");

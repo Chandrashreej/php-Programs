@@ -145,7 +145,7 @@ class AdapterPatternTest
     /**
      *Creating function testClassAdapter
      *@param nothing
-     *@return nothing
+     *@return void
      */
     public function testClassAdapter()
     {

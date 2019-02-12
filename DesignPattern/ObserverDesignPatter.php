@@ -30,8 +30,8 @@ class Subject implements SplSubject
     }
     /**
      *Creating function attach
-     *@param observer of type SplObserver
-     *@return nothing
+     *@param {object reference} {$observer} {to get attached}
+     *@return void
      */
     public function attach(SplObserver $observer)
     {
@@ -41,7 +41,7 @@ class Subject implements SplSubject
     /**
      *Creating function detach
      *@param observer of type SplObserver
-     *@return nothing
+     *@return void
      */
     public function detach(SplObserver $observer)
     {
@@ -51,7 +51,7 @@ class Subject implements SplSubject
     /**
      *Creating function notify
      *@param nothing
-     *@return nothing
+     *@return void
      */
     public function notify()
     {
@@ -63,14 +63,14 @@ class Subject implements SplSubject
     /**
      *Creating function someBusinessLogic
      *@param nothing
-     *@return nothing
+     *@return void
      */
     public function someBusinessLogic()
     {
         echo "\nSubject: I'm doing something important.\n";
         $this->state = rand(0, 10); //getting a random values
 
-        echo "Subject: My state has just changed to: {$this->state}\n";
+        echo "Subject: My state has just changed to: ".$this->state."\n";
         $this->notify(); //notifying the observer
     }
 }
@@ -80,7 +80,7 @@ class ConcreteObserverA implements SplObserver
     /**
      *Creating function update
      *@param subject of splsubject type
-     *@return nothing
+     *@return void
      */
     public function update(SplSubject $subject)
     {
@@ -96,7 +96,7 @@ class ConcreteObserverB implements SplObserver
     /**
      *Creating function update
      *@param subject of splsubject type
-     *@return nothing
+     *@return void
      */
     public function update(SplSubject $subject)
     {
@@ -114,17 +114,17 @@ try {
     $subject = new Subject;
 
     //creating new ConcreteObserverA class object
-    $o1 = new ConcreteObserverA;
-    $subject->attach($o1); //calling attach function on Subject object
+    $firstObserver = new ConcreteObserverA;
+    $subject->attach($firstObserver); //calling attach function on Subject object
 
     //creating new ConcreteObserverB class object
-    $o2 = new ConcreteObserverB;
-    $subject->attach($o2); //calling attach function on Subject object
+    $secondObserver = new ConcreteObserverB;
+    $subject->attach($secondObserver); //calling attach function on Subject object
 
     $subject->someBusinessLogic(); //calling someBusinessLogic function on Subject object
     $subject->someBusinessLogic(); //calling someBusinessLogic function on Subject object
 
-    $subject->detach($o2); //calling detach function on Subject object
+    $subject->detach($secondObserver); //calling detach function on Subject object
 
     $subject->someBusinessLogic(); //calling someBusinessLogic function on Subject object
 

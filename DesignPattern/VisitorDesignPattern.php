@@ -43,6 +43,7 @@ class Book implements ItemElement
      */
     public function getPrice()
     {
+
         return $this->price;
     }
     /**
@@ -61,10 +62,14 @@ class Book implements ItemElement
      */
     public function accept(ShoppingCartVisitor $visitor)
     {
+        echo "\n-------start testing reflection-----\n";
+        var_dump(new ReflectionClass($visitor));
+        echo "\n-------end testing reflection-----\n";
         return $visitor->visit($this);
     }
 
 }
+
 //Fruit class that implements ItemElement interface and has to implement abstract function accept
 class Fruit implements ItemElement
 {
@@ -119,10 +124,18 @@ class Fruit implements ItemElement
     }
 
 }
+//creating new ReflectionClass object and passing class name as string param to its constructor
+$class = new ReflectionClass('Fruit');
+//getting the constructor propertise of that class
+$constructor = $class->getConstructor();
+
+//printing the constructor properties
+echo "-------start testing reflection-----" . $constructor . "-------end testing reflection-----";
+
 //creating Visitor interface that will be implemented by concrete visitor class
 interface ShoppingCartVisitor
 {
-	//creating abstract function visit and visiting that has to be implemented by the concrete class
+    //creating abstract function visit and visiting that has to be implemented by the concrete class
     public function visit(Book $book);
     public function visiting(Fruit $fruit);
 }
@@ -136,21 +149,21 @@ class ShoppingCartVisitorImpl implements ShoppingCartVisitor
      */
     public function visit(Book $book)
     {
-        $cost = 0;//creating local variable and assigning 0 to it
-		
-		//apply 5$ discount if book price is greater than 50
+        $cost = 0; //creating local variable and assigning 0 to it
+
+        //apply 5$ discount if book price is greater than 50
         if ($book->getPrice() > 50) {
-			//if price of book is below 50
+            //if price of book is below 50
             $cost = $book->getPrice() - 5;
         } else {
-			//if price of book is above 50
+            //if price of book is above 50
             $cost = $book->getPrice();
         }
 
-		//printing the value to user
+        //printing the value to user
         echo ("Book ISBN::" . $book->getIsbnNumber() . " cost =" . $cost . "\n");
-		
-		return $cost;//returning the cost
+
+        return $cost; //returning the cost
     }
     /**
      *implementing function visiting of the interface ShoppingCartVisitor
@@ -159,13 +172,13 @@ class ShoppingCartVisitorImpl implements ShoppingCartVisitor
      */
     public function visiting(Fruit $fruit)
     {
-		//calculating the fruits cost by getting pricePerKg and Getting weight
-		$cost = $fruit->getPricePerKg() * $fruit->getWeight();
-		
-		//printing the value to user
-		echo ($fruit->getName() . " cost = " . $cost . "\n");
-		
-        return $cost;//returning the cost
+        //calculating the fruits cost by getting pricePerKg and Getting weight
+        $cost = $fruit->getPricePerKg() * $fruit->getWeight();
+
+        //printing the value to user
+        echo ($fruit->getName() . " cost = " . $cost . "\n");
+
+        return $cost; //returning the cost
     }
 
 }
@@ -180,16 +193,16 @@ class ShoppingCartClient
      */
     public function testing()
     {
-		//creating the item array with all the values of book object and fruit object
+        //creating the item array with all the values of book object and fruit object
         $items = [new Book(20, "1234"), new Book(100, "5678"), new Fruit(10, 2, "Banana"), new Fruit(5, 5, "Apple")];
 
-		//calling calculatePrice function to get the total cost
-		$total = $this->calculatePrice($items);
+        //calling calculatePrice function to get the total cost
+        $total = $this->calculatePrice($items);
 
-		// printing the total cost of all items
+        // printing the total cost of all items
         echo ("Total Cost = " . $total . "\n");
-	}
-	
+    }
+
     /**
      *Creating function calculatePrice to calculate cost of all items
      *@param items array
@@ -197,14 +210,14 @@ class ShoppingCartClient
      */
     private function calculatePrice($items)
     {
-		//creating new ShoppingCartVisitorImpl object 
-		$visitor = new ShoppingCartVisitorImpl();
-		
-		$sum = 0;//creating local variable and assigning 0 to it
-		
-		//looping over till the end of the array
+        //creating new ShoppingCartVisitorImpl object
+        $visitor = new ShoppingCartVisitorImpl();
+
+        $sum = 0; //creating local variable and assigning 0 to it
+
+        //looping over till the end of the array
         for ($j = 0; $j < count($items); $j++) {
-			//calling accept function of class that has implemented ItemElement and getting the values and adding
+            //calling accept function of class that has implemented ItemElement and getting the values and adding
             $sum = $sum + $items[$j]->accept($visitor);
         }
         return $sum;
@@ -232,5 +245,12 @@ try {
     echo ("\n");
 
     echo ("------------END TESTING VISITOR PATTERN----------------\n");
+
     echo ("\n");
 }
+echo "\n-------Reflection class Testing------\n";
+//creating new ReflectionClass and passing class name as string param to its constructor
+$reflector = new ReflectionClass('ShoppingCartVisitorImpl');
+
+//printing the array
+print_r($reflector->getMethods());

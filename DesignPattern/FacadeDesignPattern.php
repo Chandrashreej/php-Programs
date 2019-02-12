@@ -93,7 +93,7 @@ class HotelKeeper
     {
         $vegRestaurant = new VegRestaurant(); //creating new VegRestaurant object
         $vegMenu = $vegRestaurant->getMenus(); // calling getMenus function of VegRestaurant class on vegRestaurant object
-        echo "Here Sir, veg menu of Raj Bhavan Veg Restaurant \n ";
+        echo "Here Sir, veg menu of XYZ Veg Restaurant \n ";
     }
     /**
      *Creating function getNonVegMenu to get the menu of that particular restaurant
@@ -104,7 +104,7 @@ class HotelKeeper
     {
         $nonVegRestaurant = new NonVegRestaurant(); //creating new NonVegRestaurant object
         $nonvegMenu = $nonVegRestaurant->getMenus(); // calling getMenus function of NonVegRestaurant class on NonVegRestaurant object
-        echo "Here Sir, Non veg menu of Raj Bhavan Non Veg Restaurant\n ";
+        echo "Here Sir, Non veg menu of XYZ Non Veg Restaurant\n ";
     }
     /**
      *Creating function getVegNonMenu to get the menu of that particular restaurant
@@ -115,7 +115,7 @@ class HotelKeeper
     {
         $vegNonBothRestaurant = new VegNNonVegBothRestaurant(); //creating new VegNNonVegBothRestaurant object
         $bothMenu = $vegNonBothRestaurant->getMenus(); // calling getMenus function of VegNNonVegBothRestaurant class on vegNonBothRestaurant object
-        echo "Here Sir, Both veg and non veg menu of Raj Bhavan Veg/Non Veg Restaurant\n ";
+        echo "Here Sir, Both veg and non veg menu of XYZ Veg/Non Veg Restaurant\n ";
     }
 }
 //creating clent class for testing Facade Design pattern
