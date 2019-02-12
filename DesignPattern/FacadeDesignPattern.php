@@ -87,7 +87,7 @@ class HotelKeeper
     /**
      *Creating function getVegMenu to get the menu of that particular restaurant
      *@param nothing
-     *@return nothing
+     *@return void
      */
     public function getVegMenu()
     {
@@ -98,7 +98,7 @@ class HotelKeeper
     /**
      *Creating function getNonVegMenu to get the menu of that particular restaurant
      *@param nothing
-     *@return nothing
+     *@return void
      */
     public function getNonVegMenu()
     {
@@ -109,7 +109,7 @@ class HotelKeeper
     /**
      *Creating function getVegNonMenu to get the menu of that particular restaurant
      *@param nothing
-     *@return nothing
+     *@return void
      */
     public function getVegNonMenu()
     {
@@ -124,7 +124,7 @@ class Client
     /**
      *Creating function customerFacing to know how the facade design pattern works
      *@param nothing
-     *@return nothing
+     *@return void
      */
     public function customerFacing()
     {
@@ -167,7 +167,7 @@ class Client
                     echo "\n";
                     break;
             }
-        } catch (Exception $e) {
+        } catch (Exception $e) {//if exception occurs catch will hold the exception
             echo "\n", $e->getMessage();
         } finally {
             echo ("------------END TESTING FACADE PATTERN----------------\n");

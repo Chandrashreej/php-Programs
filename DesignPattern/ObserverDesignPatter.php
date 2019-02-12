@@ -1,167 +1,136 @@
-
 <?php
-interface Subject {
-//methods to register and unregister observers
-public function register($obj);
-// public function unregister($obj);
-// //method to notify observers of change
-//public function notifyObservers();
-//method to get updates from subject
-public function getUpdate($obj);
-}
+/**
+ *Program to create Observer Design Pattern
+ *
+ * @author chandrashree j
+ * @since 09-01-2019
+ */
 
+/********************************************************************************************/
+/**
+ * error handler to handle errors
+ */
+set_error_handler(function ($errno, $errstr, $error_file, $error_line) {
+    echo "______Error Occured_____handle it\n";
+    echo "Error: [$errno] $errstr - $error_file:$error_line \n";
+    die();
+});
 
-
-interface Observer {
-	//method to update the observer, used by subject
-	public function update();	
-	//attach with subject to observe
-	public function setSubject($sub);
-}
-
-class MyTopic implements Subject {
-public $observers;
-public $message;
-public $changed;
-public static $i = 0;
-//private final Object MUTEX= new Object();
-public function __construct(){
-    $this->observers = [];
-}
-public function contains($array,$str)
+//creating class that implements SplSubject which is built in interface and implement attach, detach and notify functions of SplSubject
+class Subject implements SplSubject
 {
-    $len = count($array);
-    for($i =0;$i<$len;$i++)
+
+    public $state; //public instance variable for the object Subject
+    private $observers; // private instance variable for the object Subject
+
+    //creating an constructor to assign observer
+    public function __construct()
     {
-        if($array[$i] == $str)
-        {
-            return true;
+        $this->observers = new SplObjectStorage; //SplObjectStorage class provides a map from objects to data
+    }
+    /**
+     *Creating function attach
+     *@param observer of type SplObserver
+     *@return nothing
+     */
+    public function attach(SplObserver $observer)
+    {
+        echo "Subject: Attached an observer.\n";
+        $this->observers->attach($observer);
+    }
+    /**
+     *Creating function detach
+     *@param observer of type SplObserver
+     *@return nothing
+     */
+    public function detach(SplObserver $observer)
+    {
+        $this->observers->detach($observer);
+        echo "Subject: Detached an observer.\n";
+    }
+    /**
+     *Creating function notify
+     *@param nothing
+     *@return nothing
+     */
+    public function notify()
+    {
+        echo "Subject: Notifying observers...\n";
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
         }
-        else
-        {
-            return false;
+    }
+    /**
+     *Creating function someBusinessLogic
+     *@param nothing
+     *@return nothing
+     */
+    public function someBusinessLogic()
+    {
+        echo "\nSubject: I'm doing something important.\n";
+        $this->state = rand(0, 10); //getting a random values
+
+        echo "Subject: My state has just changed to: {$this->state}\n";
+        $this->notify(); //notifying the observer
+    }
+}
+//creating class ConcreteObserverA that implements SplObserver which is built in interface and implement updatefunctions of SplObserver
+class ConcreteObserverA implements SplObserver
+{
+    /**
+     *Creating function update
+     *@param subject of splsubject type
+     *@return nothing
+     */
+    public function update(SplSubject $subject)
+    {
+        //if the value of the state is less than 3 this loop is worked
+        if ($subject->state < 3) {
+            echo "ConcreteObserverA: Reacted to the event.\n";
         }
     }
 }
-public function getindex($array,$str)
+//creating class ConcreteObserverB that implements SplObserver which is built in interface and implement update functions of SplObserver
+class ConcreteObserverB implements SplObserver
 {
-    $len = count($array);
-    for($i =0;$i<$len;$i++)
+    /**
+     *Creating function update
+     *@param subject of splsubject type
+     *@return nothing
+     */
+    public function update(SplSubject $subject)
     {
-        if($array[$i] == $str)
-        {
-            return $i;
-        }
-        else
-        {
-            return -1;
+        //if the value of the state is equal to 0 and greater or equal to 2 this loop is worked
+        if ($subject->state == 0 || $subject->state >= 2) {
+            echo "ConcreteObserverB: Reacted to the event.\n";
         }
     }
 }
-public function register($obj) {
+//try catch finally block if exception happen
+try {
+    echo ("\n----------OBSERVER DESIGN PATTERN------------\n");
+    echo ("---------BEGIN TESTING OBSERVER PATTERN----------\n");
+    //creating new subject class object
+    $subject = new Subject;
 
-    if($obj == null) throw new NullPointerException("Null Observer");
+    //creating new ConcreteObserverA class object
+    $o1 = new ConcreteObserverA;
+    $subject->attach($o1); //calling attach function on Subject object
 
-    //synchronized (MUTEX) {
+    //creating new ConcreteObserverB class object
+    $o2 = new ConcreteObserverB;
+    $subject->attach($o2); //calling attach function on Subject object
 
-    if(!$this->contains($this->observers,$obj)) 
-    $this->observers[self::$i++] = $obj;
+    $subject->someBusinessLogic(); //calling someBusinessLogic function on Subject object
+    $subject->someBusinessLogic(); //calling someBusinessLogic function on Subject object
 
-    //}
+    $subject->detach($o2); //calling detach function on Subject object
+
+    $subject->someBusinessLogic(); //calling someBusinessLogic function on Subject object
+
+} catch (Exception $e) {
+    echo "\n", $e->getMessage();
+} finally {
+    echo ("------------END TESTING OBSERVER PATTERN----------------\n");
+    echo ("\n");
 }
-
-
-// public function unregister($obj) {
-//     //synchronized (MUTEX) {
-//        $num= $this->getindex($this->observers,$obj)
-//        $arr[] = $this->observers[];
-//         array_splice($arr,$num,1,$obj);
-//     //}
-//  }
-
-
-// public function notifyObservers($obj) {
-// //     $observersLocal = [];
-// //     //synchronization is used to make sure any observer registered after message is received is not notified
-// //     //synchronized (MUTEX) {
-// //         if (!$this->changed)
-// //             return;
-// //         $observersLocal = $this->observers;
-// //         $this->changed=false;
-// //    // }
-// //     for ($j=0;$j<count($observersLocal);$j++) {
-// //          $obj->update();
-// //     }
-
-// }
-
-
-public function getUpdate($obj) {
-    return $this->message;
-}
-
-//method to post message to the topic
-public function postMessage($msg){
-    echo("Message Posted to Topic:".$msg."\n");
-    $this->message=$msg;
-    $this->changed=true;
-    //$this->notifyObservers();
-}
-
-}
-
-class MyTopicSubscriber implements Observer {
-	
-	private $name;
-	private $topic;
-	
-	public function __construct($nm){
-		$this->name=$nm;
-	}
-
-	public function update() {
-		$msg = $this->topic->getUpdate($this);
-		if($msg == null){
-			echo($this->name.":: No new message \n");
-		}else
-		echo($this->name+":: Consuming message::".$msg."\n");
-	}
-
-
-	public function setSubject($sub) {
-		$this->topic=$sub;
-	}
-
-}
-class ObserverPatternTest {
-
-public function testing() {
-    //create subject
-    $topic = new MyTopic();
-    
-    //create observers
-    $obj1 = new MyTopicSubscriber("Obj1");
-    $obj2 = new MyTopicSubscriber("Obj2");
-    $obj3 = new MyTopicSubscriber("Obj3");
-    
-    //register observers to the subject
-    $topic->register($obj1);
-    $topic->register($obj2);
-    $topic->register($obj3);
-    
-    //attach observer to subject
-    $obj1->setSubject($topic);
-    $obj2->setSubject($topic);
-    $obj3->setSubject($topic);
-    
-    //check if any update is available
-    $obj1->update();
-    
-    //now send message to subject
-    $topic->postMessage("New Message");
-}
-
-}
-$obj = new ObserverPatternTest();
-$obj->testing();
-?>
