@@ -1,0 +1,6 @@
+{
+    "require": {
+        "goaop/framework": "^2.3",
+        "doctrine/annotations": "^1.6"
+    }
+}
